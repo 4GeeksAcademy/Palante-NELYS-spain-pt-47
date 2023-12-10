@@ -975,9 +975,9 @@ def create_event():
         return jsonify({"message": "Missing data to create the event"}), 400
     
     try:
-        date = datetime.strptime(data['date'], '%Y-%m-%d %H:%M:%S')
+        
 
-        new_event = Events(title=data['title'], date=date, address=data['address'], user_id=data['user_id'])
+        new_event = Events(title=data['title'], date=['date'], address=data['address'], user_id=data['user_id'])
         db.session.add(new_event)
         db.session.commit()
 
