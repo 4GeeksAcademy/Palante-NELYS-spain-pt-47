@@ -45,7 +45,7 @@ export const Navbar = () => {
                   Comunidad
                 </button>
                 <ul className="dropdown-menu">
-                  <li><a className="dropdown-item" href="#">Chat</a></li>
+                  
                   <Link to='events'>
                     <li><a className="dropdown-item" href="#">Eventos</a></li>
                   </Link>
@@ -106,9 +106,7 @@ export const Navbar = () => {
                         <Link to='/my_appointment'>
                           <li><a className="dropdown-item" href="#">Mis citas</a></li>
                         </Link>
-                        <Link to='/my_event'>
-                          <li><a className="dropdown-item" href="#">Mis eventos</a></li>
-                        </Link>
+                        
                         <Link to='/todo-list'>
                           <li><a className="dropdown-item" href="#">Mi Todo-List</a></li>
                         </Link>

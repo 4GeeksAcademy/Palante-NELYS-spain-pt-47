@@ -129,11 +129,12 @@ span {
     float: left;
     color: white;
     padding: 1rem;
-    background: #e9959b;
+    background: #102d7b;
     border-radius: 7px;
     border: 0;
-    font-size: 22px;
+    font-size: 24px;
     margin-top: 3rem;
+    margin-left: 7rem;
 }
 
 .manos {
