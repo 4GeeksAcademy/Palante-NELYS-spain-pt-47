@@ -284,15 +284,17 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
         if (resp.ok) {
           getActions().send_mail(selectedDay, selectedTime)
-          alert('Tu cita ha sido reservada y se te ha enviado un correo')
+          customAlert.classList.remove('error');
+          customAlert.classList.add('success');
+          customAlert.textContent = 'Tu cita ha sido reservada y se te ha enviado un correo';
 
         } else {
           const data = await resp.json();
           // Verifica si el freelancer está ocupado
           if (resp.status === 400 && data.msg === 'El freelancer esta ocupado') {
-            // Muestra un mensaje al usuario indicando que el freelancer está ocupado
-            // Puedes mostrar este mensaje en tu interfaz de usuario
-            alert('El freelancer está ocupado en este horario');
+            customAlert.classList.remove('success');
+            customAlert.classList.add('error');
+            customAlert.textContent = 'El freelancer está ocupado en este horario';
           } else {
             // Maneja otros casos de error si es necesario
             console.error('Error:', data.msg);
@@ -357,11 +359,13 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then(data => {
             console.log(data);
-            alert('Mensaje enviado exitosamente');
+            customAlert.classList.remove('error');
+            customAlert.classList.add('success');
+            customAlert.textContent = 'Su correo se ha enviado correctamente';
           })
           .catch(error => {
             console.error('Error:', error);
-            alert('Hubo un error al enviar el mensaje');
+            
           });
       },
 
@@ -399,17 +403,20 @@ event_join: async (event_id) => {
     });
 
     if (resp.ok) {
+      customAlert.classList.remove('error');
+      customAlert.classList.add('success');
+      customAlert.textContent = 'Te has unido a este evento. Contamos con tu presencia';
       
-      alert('Te has unido a este evento. Contamos con tu presencia y se te ha enviado un correo');
     } else {
-      const data = await resp.json();
-      if (resp.status === 400 && data.msg === 'Ya estas unido a este evento') {
-      
-        
-        alert('Ya estás unido a este evento');
-      } else {
-        console.error('Error:', data.msg || 'Ha ocurrido un error al unirte al evento');
-      }
+      // const data = await resp.json();
+      // if (resp.status === 400 && data.msg === 'Ya estas unido a este evento') {
+              
+      customAlert.classList.remove('error');
+      customAlert.classList.add('success');
+      customAlert.textContent ='Ya estás unido a este evento';
+      // } else {
+      //   console.error('Error:', data.msg || 'Ha ocurrido un error al unirte al evento');
+      // }
     }
   } catch (error) {
     console.error('Fetch error:', error);
@@ -555,7 +562,9 @@ get_event: async (event_id) => {
         })
         .then(response => {
           if (response.ok) { 
-            alert('Tus datos fueron actualizados')
+            customAlert.classList.remove('error');
+            customAlert.classList.add('success');
+            customAlert.textContent ='Tus datos fueron actualizados';
             return response.json();
           } else {
             throw new Error('Se produjo un error en la red');
@@ -619,7 +628,9 @@ get_event: async (event_id) => {
       borrarToken: () => {
         sessionStorage.removeItem('token');
         setStore({ user_login: null })
-        alert('Te has desconectado de la aplicacion')
+        customAlert.classList.remove('error');
+        customAlert.classList.add('success');
+        customAlert.textContent ='Te has desconectado de la aplicacion';
       },
 
       exampleFunction: () => {

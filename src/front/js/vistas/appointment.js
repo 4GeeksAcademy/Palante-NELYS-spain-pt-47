@@ -65,6 +65,9 @@ export const Appointment = () => {
 			    <img className="citas_inicio" src={readingsinicio} alt="Readings Inicio"></img>
                 <div className="citas_tittle"><strong>Nuestro equipo</strong></div>
                 </div>
+                <div id="alertContainer">
+                    <div class="custom-alert" id="customAlert"></div>
+                </div>
             <div className="row freelancer_citas">
                 <div className="col-sm-12 col-md-5 ">
                     <div className="datos_freelancer_citas d-flex">

@@ -15,7 +15,9 @@ export const Events = () => {
                 <div className="meditations_tittle"><strong>Eventos Navideños</strong></div>
                 <div className="explicacion_meditations">Este final de año estará especialmente dedicado a experimentar la alegria de ayudar a otros, especialmente niños y ancianos.</div>
             </div>
-			
+			<div id="alertContainer">
+                    <div class="custom-alert" id="customAlert"></div>
+                </div>
 				<div class="row contenidohacemos">
 
 					<div class="col-sm-12 col-md-4 eventos-uno">

@@ -39,6 +39,9 @@ export const User_information = () => {
         <img className="perfil_informacion" src={readingsinicio} /> 
         <div className="perfil-saludo"><strong>Datos Personales</strong></div>
       </div>
+        <div id="alertContainer">
+          <div class="custom-alert" id="customAlert"></div>
+        </div>
 
       <div className="row linea-datos">
         <nav className="navbar expand-lg" id="informacion-personal">
