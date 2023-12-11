@@ -43,7 +43,7 @@ export const Readings = () => {
 							</div>
 							<div className="card-footer">
 								<a className="descargar" href={readings.download}>
-									Descargar
+									Leer
 								</a>
 							</div>
 						</div>

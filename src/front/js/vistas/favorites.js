@@ -34,7 +34,7 @@ export const Favorites = () =>{
 							</div>
 							<div className="card_favorites_readings">
                             <a className="descargar_favorites_readings" href={favorites_readings.download}>
-									Descargar
+									Leer
 								</a>
 							</div>
 						</div>
