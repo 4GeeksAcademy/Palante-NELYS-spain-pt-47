@@ -23,7 +23,7 @@ from flask_mail import Mail, Message
 from flask_bcrypt import Bcrypt
 from datetime import datetime
 #from models import Person
-
+import secrets
 import cloudinary
 import cloudinary.uploader
 
@@ -1006,6 +1006,88 @@ def delete_event(event_id):
     except Exception as e:
         return jsonify({"message": "Error deleting the event", "error": str(e)}), 500
 
+
+
+### restablecer contrasena
+# PUT | REACTIVAR USUARIO POR EMAIL
+
+@app.route('/reactivate', methods=['PUT'])
+def reactivate_user():
+    data = request.get_json()
+    email_to_reactivate = data.get("email")
+
+    user_to_reactivate = User.query.filter_by(
+        email=email_to_reactivate, is_active=False).first()
+
+    if user_to_reactivate is None:
+        return jsonify({"msg": "User not found or already active"}), 404
+
+    # Reactivar el usuario
+    user_to_reactivate.is_active = True
+    db.session.commit()
+
+    return jsonify({"msg": "User reactivated successfully"}), 200
+
+
+
+# Generar token de restablecimiento de contraseña
+
+
+@app.route('/recoverPassword', methods=['POST'])
+def recover_password():
+    email = request.json.get("email")
+    user = User.query.filter_by(email=email).first()
+
+    if user:
+        # Generar token
+        nuevo_token = secrets.token_urlsafe(32)
+
+        # Enviar correo electrónico con el token
+        send_token_email(email, nuevo_token)
+
+        # Almacenar el token en la base de datos para su verificación
+        user.nuevo_token = nuevo_token
+        db.session.commit()
+
+        return jsonify({"message": "A password reset email has been sent to the email address provided"}), 200
+    else:
+        return jsonify({"message": "Email not found"}), 404
+
+
+def generate_reset_token(email):
+    return bcrypt.hashpw(email.encode('utf-8'), bcrypt.gensalt()).decode("utf-8")
+
+# Enviar correo electrónico con el token
+
+
+def send_token_email(email, nuevo_token):
+    subject = "Password Reset"
+    body = f"Ve a este link para restablecer la contraseña: https://sample-service-name-1pji.onrender.com/passwordreset/{nuevo_token}"
+
+    msg = Message(subject=subject, sender="noreply@example.com",
+                  recipients=[email])
+    msg.body = body
+    mail.send(msg)
+
+
+@app.route('/passwordreset/<nuevo_token>', methods=['POST'])
+def nuevo_password(nuevo_token):
+    # Busca el usuario por el token de reset
+    user = User.query.filter_by(nuevo_token=nuevo_token).first()
+    print(user)
+    print(nuevo_token)
+    if user:
+        new_password = request.json.get("new_password")
+
+        user.password = bcrypt.generate_password_hash(
+            new_password).decode('utf-8')
+        # Elimina el token de reset para que no se pueda utilizar nuevamente
+        user.nuevo_token = None
+        db.session.commit()
+
+        return jsonify({"message": "Password updated successfully"}), 200
+    else:
+        return jsonify({"message": "Invalid or expired reset token"}), 401
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

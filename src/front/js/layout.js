@@ -15,7 +15,7 @@ import { User_information } from "./vistas/user-information";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
-import { RecoverPassword } from "./vistas/recover-password";
+import { RecoverPassword } from "./vistas/recoverPassword";
 import { TodoList } from "./vistas/todo-list";
 import { Readings } from "./vistas/readings";
 import { Podcast } from "./vistas/podcast";
@@ -26,6 +26,7 @@ import { Favorites } from "./vistas/favorites";
 import { Appointment } from "./vistas/appointment";
 import { My_appointment } from "./vistas/my_appointment";
 import { Events } from "./vistas/events";
+import { Password_Reset } from "./vistas/passwordreset";
 
 //create your first component
 const Layout = () => {
@@ -43,7 +44,7 @@ const Layout = () => {
           <Routes>
             <Route element={<Home />} path="/" />
             <Route element={<Login_user />} path="/login-user" />
-            <Route element={<RecoverPassword />} path="/recover-password" />
+           
             <Route element={<Login_freelance />} path="/login-freelance" />
             <Route element={<User_information />} path="/user-information" />
             <Route element={<TodoList />} path="/todo-list" />
@@ -58,6 +59,8 @@ const Layout = () => {
             <Route element={<Signup_user />} path="/signup-user" />
             <Route element={<Signup_freelancer />} path="/signup-freelance" />
             <Route element={<Events/>} path="/events" />
+            <Route element={<RecoverPassword/>} path="/recoverPassword"/>
+            <Route element={<Password_Reset />} path="/passwordreset/:nuevo_token" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />

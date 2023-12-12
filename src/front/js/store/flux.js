@@ -633,6 +633,32 @@ get_event: async (event_id) => {
         customAlert.textContent ='Te has desconectado de la aplicacion';
       },
 
+      //restablecer contrasena
+      reset_password: async (email) => {
+        const response = await fetch(process.env.BACKEND_URL + "/recoverPassword", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        });
+  
+        if (response.ok) {
+          customAlert1.classList.remove('error');
+          customAlert1.classList.add('success1');
+          customAlert1.textContent = 'Se le ha enviado un correo para restablecer su contraseña';
+        } else if (response.status === 404) {
+          customAlert1.classList.remove('error');
+          customAlert1.classList.add('success1');
+          customAlert1.textContent = 'Su email no aparece en nuestra base de datos';
+        } else {
+          // Handle other errors
+          console.error("Password reset request failed:", response.statusText);
+        
+      }},
+ 
+      
+
       exampleFunction: () => {
         getActions().changeColor(0, "green");
       },
