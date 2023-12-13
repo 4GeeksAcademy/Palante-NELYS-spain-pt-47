@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
-import fondo from "../../img/imghomeazul__1_.png"
+import home from "../../img/home.jpg";
 import { Formik } from "formik";
 
 export const Signup_freelancer = () => {
@@ -28,12 +28,12 @@ export const Signup_freelancer = () => {
   }
 
   return (
-    <div className="container-fluid">
-      <img className="imagen-fondo" src={fondo} />
-      <div className="container-form">
-        <div className="container-logo">
-          <h1 className="logo">Pa'lante</h1>
-        </div>
+    <div className="contenedor">
+      <div className="imagen user-login" style={{ backgroundImage: `url(${home})` }}>
+
+        <div className="row principal-formulario">
+          <div className="col-sm-12 col-md-4 formulario-user">
+            <h1 className="titulo-user"><strong>Pa'lante</strong></h1>
         <Formik
           validate={() => {
             let errores = {}
@@ -185,6 +185,8 @@ export const Signup_freelancer = () => {
             </form>
           )}
         </Formik>
+        </div>
+        </div>
       </div>
     </div>
   );

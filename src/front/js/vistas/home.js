@@ -105,11 +105,10 @@ export const Home = () => {
 						<h1 className="h1_contenido_conocenos_equipo"><strong>Conoce a nuestros profesionales</strong></h1>
 						<p className="p_contenido_conocenos">Contamos con un equipo de profesionales y colaboradores especializados en diferentes terapias, que te ayudarán a encontrar una solución, a medida que desarrollas habilidades y rediriges el rumbo de tu vida</p>
 						<h1 className="h1_contenido_conocenos_equipo"><strong>Te gustaría colaborar</strong></h1>
-						<div className="colaborar">
-							<h1 className="h1_colaborar"><strong>Escríbenos </strong></h1>
-							<p><i class="fa-solid fa-envelope"></i>palante4geeksacademic@gmail.com</p>
-						</div>
-						
+						<Link to='signup-freelance'>
+						<button className="btn_colaborar"><strong>Trabajar como freelancer</strong></button>
+						</Link>
+									
 					</div>
 					<div class="col-sm-12 col-md-5 psicologos" style={{ backgroundImage: `url(${equipo})` }}>
 

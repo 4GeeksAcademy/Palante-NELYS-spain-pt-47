@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
-import fondo from "../../img/imghomeazul__1_.png"
+import home from "../../img/home.jpg";
 
 export const Login_freelance = () => {
 
@@ -46,12 +46,11 @@ export const Login_freelance = () => {
   };*/
 
   return (
-    <div className="container-fluid">
-      <img className="imagen-fondo" src={fondo} />
-      <div className="container-form">
-        <div className="container-logo">
-          <h1 className="logo">Pa'lante</h1>
-        </div>
+    <div className="contenedor">
+        <div className="imagen user-login" style={{ backgroundImage: `url(${home})` }}>
+          <div className="row principal-formulario">
+            <div className="col-sm-12 col-md-4 formulario-user">
+              <h1 className="titulo-user"><strong>Pa'lante</strong></h1>
         <form className="form-inputs" onSubmit={handleSubmit}>
           <div className="container-inputs">
             <div className="detalle-input">
@@ -84,7 +83,11 @@ export const Login_freelance = () => {
           </Link>
         </form>
         <p className="ruta-register">¿Aún no tienes cuenta? <Link to="/signup-freelance" className="ruta-registers">Registrate</Link></p>
+        </div>
+            <div class="col-sm-12 col-md-8"></div>
+          </div>
+        </div>
       </div>
-    </div>
-  )
-}
+    
+  );
+};
