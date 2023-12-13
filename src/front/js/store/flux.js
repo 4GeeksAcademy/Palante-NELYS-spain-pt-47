@@ -342,7 +342,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       send_mail: (selectedDay, selectedTime) => {
         const token = sessionStorage.getItem('token');
-        fetch(process.env.BACKEND_URL + '/send_mail', {
+        fetch(process.env.BACKEND_URL + '/api/send_mail', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
