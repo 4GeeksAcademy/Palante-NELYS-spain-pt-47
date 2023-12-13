@@ -113,7 +113,7 @@ def serve_any_other_file(path):
                    ######### USUARIOS #########
 
 ##### ruta de registro de usuario #####
-@app.route("/userregister", methods=['POST'])
+@app.route("/api/userregister", methods=['POST'])
 def user_register():
     body = request.get_json(silent=True)
     if body is None:
@@ -133,7 +133,7 @@ def user_register():
     return jsonify('Successful registration'),200
 
 ##### ruta de inicio de sesion de usuario #####
-@app.route("/userlogin", methods=["POST"])
+@app.route("/api/userlogin", methods=["POST"])
 def user_login():
     body = request.get_json(silent=True)
 
@@ -148,7 +148,7 @@ def user_login():
     return jsonify(access_token=access_token), 200
 
 ##### ruta acceso a datos de usuario #####
-@app.route("/userdata", methods=['GET'])
+@app.route("/api/userdata", methods=['GET'])
 @jwt_required()
 def userdata():
     current_email = get_jwt_identity()
@@ -162,7 +162,7 @@ def userdata():
     return(user.serialize()), 200
 
 ##### ruta de modificacion de datos #####
-@app.route("/userupdate", methods=['POST'])
+@app.route("/api/userupdate", methods=['POST'])
 @jwt_required()
 def update_user():
     current_email = get_jwt_identity()
@@ -238,7 +238,7 @@ def update_password():
                 #########TODOLIST#########
 
 ##### ruta de tareas #####                
-@app.route('/tasks', methods=['GET'])
+@app.route('/api/tasks', methods=['GET'])
 def gettasks():
     tasks = Tasks.query.all()
     if tasks is None:
@@ -247,7 +247,7 @@ def gettasks():
     return jsonify([task.serialize() for task in tasks])
 
 ##### ruta crear tareas #####
-@app.route('/createtask', methods=['POST'])
+@app.route('/api/createtask', methods=['POST'])
 @jwt_required()
 def createtask():
 
@@ -271,7 +271,7 @@ def createtask():
     return jsonify('task created successfully'), 201
 
 ##### ruta modificar tareas #####
-@app.route('/updatetask/<int:task_id>', methods=['PUT'])
+@app.route('/api/updatetask/<int:task_id>', methods=['PUT'])
 @jwt_required()
 def update_task(task_id):
     current_email = get_jwt_identity()
@@ -301,7 +301,7 @@ def update_task(task_id):
     return jsonify(task_serialized)
 
 ##### ruta eliminar tareas #####    
-@app.route('/deletetask/<int:task_id>', methods=['DELETE'])
+@app.route('/api/deletetask/<int:task_id>', methods=['DELETE'])
 @jwt_required()
 def delete_task(task_id):
     current_email = get_jwt_identity()
@@ -328,7 +328,7 @@ def delete_task(task_id):
                 #########FREELANCERS#########
 
 ##### ruta de registro de freelancer #####
-@app.route("/freelancerregister", methods=['POST'])
+@app.route("/api/freelancerregister", methods=['POST'])
 def freelancer_register():
     body = request.get_json(silent=True)
     if body is None:
@@ -352,7 +352,7 @@ def freelancer_register():
     return jsonify('Successful registration'), 200 
 
 ##### ruta de inicio de sesion de freelancer #####
-@app.route("/freelancerlogin", methods=['POST'])
+@app.route("/api/freelancerlogin", methods=['POST'])
 def freelancer_token():
     body = request.get_json(silent=True)
     if body is None:
@@ -371,7 +371,7 @@ def freelancer_token():
     return jsonify(access_token=access_token)  
 
 ##### ruta privada de freelanecer #####
-@app.route("/freelancerprivate", methods=['GET'])
+@app.route("/api/freelancerprivate", methods=['GET'])
 @jwt_required()
 def freelancer_private():
     email = get_jwt_identity()
@@ -380,14 +380,14 @@ def freelancer_private():
                 #########READINGS#########
 
 ##### endpoints para ver todos los Readings #####                
-@app.route('/readings', methods=['GET'])
+@app.route('/api/readings', methods=['GET'])
 def get_readings():
     readings_all = Readings.query.all()  
     readings_list = list(map(lambda readings: readings.serialize(), readings_all))
     return jsonify(readings_list), 200
 
 ##### endpoints para ver cada Readings #####
-@app.route('/readings/<int:reading_id>', methods=['GET'])
+@app.route('/api/readings/<int:reading_id>', methods=['GET'])
 def get_reading_id(reading_id):
     reading = Readings.query.get(reading_id)
     if reading is None:
@@ -396,7 +396,7 @@ def get_reading_id(reading_id):
         return jsonify({'msg':'ok','inf':reading.serialize()})
     
 ##### endpoints para ingresar Readings a la tabla #####
-@app.route('/readings', methods=['POST'])
+@app.route('/api/readings', methods=['POST'])
 def create_readings():
     body = request.get_json(silent=True)
     print(body)
@@ -422,7 +422,7 @@ def create_readings():
     return jsonify({'msg': 'ok'}),200
 
 ##### endpoints para actualizar la tabla de Readings #####
-@app.route('/readings/<int:reading_id>', methods=['PUT'])
+@app.route('/api/readings/<int:reading_id>', methods=['PUT'])
 def update_reading(reading_id):
     reading = Readings.query.get(reading_id)
     if reading is None:
@@ -440,7 +440,7 @@ def update_reading(reading_id):
     return jsonify({'msg':'ok'}), 200
 
 ##### endpoints para eliminar en la tabla de Readings #####
-@app.route('/readings/<int:reading_id>', methods=['DELETE'])
+@app.route('/api/readings/<int:reading_id>', methods=['DELETE'])
 def delete_reading(reading_id):
     reading = Readings.query.get(reading_id)
     if reading is None:
@@ -452,14 +452,14 @@ def delete_reading(reading_id):
                 #########MEDITATIONS#########
 
 ##### endpoint para ver todos los Meditations #####
-@app.route('/meditations', methods=['GET'])
+@app.route('/api/meditations', methods=['GET'])
 def get_meditations():
     meditations_all = Meditations.query.all()  
     meditations_list = list(map(lambda meditations: meditations.serialize(), meditations_all))
     return jsonify(meditations_list), 200
 
 ##### endpoint para ver cada Meditations #####
-@app.route('/meditations/<int:meditation_id>', methods=['GET'])
+@app.route('/api/meditations/<int:meditation_id>', methods=['GET'])
 def get_meditation_id(meditation_id):
     meditation = Meditations.query.get(meditation_id)
     if meditation is None:
@@ -468,7 +468,7 @@ def get_meditation_id(meditation_id):
         return jsonify({'msg':'ok', 'inf':meditation.serialize()})
 
 ##### endpoint para agregar Meditations #####
-@app.route('/meditations', methods=['POST'])
+@app.route('/api/meditations', methods=['POST'])
 def create_meditations():
     body = request.get_json(silent=True)
     print(body)
@@ -489,7 +489,7 @@ def create_meditations():
     return jsonify({'msg': 'ok'}),200
 
 ##### endpoint para actualizar en la tabla de Meditations #####
-@app.route('/meditations/<int:meditation_id>', methods=['PUT'])
+@app.route('/api/meditations/<int:meditation_id>', methods=['PUT'])
 def update_meditation(meditation_id):
     meditation = Meditations.query.get(meditation_id)
     if meditation is None:
@@ -506,7 +506,7 @@ def update_meditation(meditation_id):
     return jsonify({'msg':'ok'}), 200
 
 ##### endpoint para eliminar en la tabla de Meditations #####
-@app.route('/meditations/<int:meditation_id>', methods=['DELETE'])
+@app.route('/api/meditations/<int:meditation_id>', methods=['DELETE'])
 def delete_meditation(meditation_id):
     meditation = Meditations.query.get(meditation_id)
     if meditation is None:
@@ -518,14 +518,14 @@ def delete_meditation(meditation_id):
                 #########PODCATS#########
 
 ##### endpoint para ver todos los Podcast #####
-@app.route('/podcast', methods=['GET'])
+@app.route('/api/podcast', methods=['GET'])
 def get_podcast():
     podcast_all = Podcast.query.all()  
     podcast_list = list(map(lambda podcast: podcast.serialize(), podcast_all))
     return jsonify(podcast_list), 200
 
 ##### endpoint para ver cada Podcast #####
-@app.route('/podcast/<int:podcast_id>', methods=['GET'])
+@app.route('/api/podcast/<int:podcast_id>', methods=['GET'])
 def get_podcast_id(podcast_id):
     podcast = Podcast.query.get(podcast_id)
     if podcast is None:
@@ -534,7 +534,7 @@ def get_podcast_id(podcast_id):
         return jsonify({'msg':'ok', 'inf':podcast.serialize()})
 
 ##### endpoint para agregar Podcast #####
-@app.route('/podcast', methods=['POST'])
+@app.route('/api/podcast', methods=['POST'])
 def create_podcast():
     body = request.get_json(silent=True)
     print(body)
@@ -557,7 +557,7 @@ def create_podcast():
     return jsonify({'msg': 'ok'}),200
 
 ##### endpoint para actualizar en la tabla de Podcast #####
-@app.route('/podcast/<int:podcast_id>', methods=['PUT'])
+@app.route('/api/podcast/<int:podcast_id>', methods=['PUT'])
 def update_podcast(podcast_id):
     podcast = Podcast.query.get(podcast_id)
     if podcast is None:
@@ -575,7 +575,7 @@ def update_podcast(podcast_id):
     return jsonify({'msg':'ok'}), 200
 
 ##### endpoint para eliminar en la tabla de Podcast #####
-@app.route('/podcast/<int:podcast_id>', methods=['DELETE'])
+@app.route('/api/podcast/<int:podcast_id>', methods=['DELETE'])
 def delete_podcast(podcast_id):
     podcast = Podcast.query.get(podcast_id)
     if podcast is None:
@@ -588,7 +588,7 @@ def delete_podcast(podcast_id):
                 #########TABLA FAVORITOS#########
 
 ##### endpoint para agregar favoritos de readings #####
-@app.route('/favorites_readings', methods=['POST'])
+@app.route('/api/favorites_readings', methods=['POST'])
 @jwt_required()
 def create_favorite_readings():
     body = request.get_json(silent=True)
@@ -614,7 +614,7 @@ def create_favorite_readings():
     return jsonify({'msg': 'ok'}),200
 
 ##### endpoint para agregar favoritos de meditaciones #####
-@app.route('/favorites_meditations', methods=['POST'])
+@app.route('/api/favorites_meditations', methods=['POST'])
 @jwt_required()
 def create_favorite_meditations():
     body = request.get_json(silent=True)
@@ -640,7 +640,7 @@ def create_favorite_meditations():
 
 
 ##### endpoint para agregar favoritos de podcast #####
-@app.route('/favorites_podcast', methods=['POST'])
+@app.route('/api/favorites_podcast', methods=['POST'])
 @jwt_required()
 def create_favorite_podcast():
     body = request.get_json(silent=True)
@@ -666,7 +666,7 @@ def create_favorite_podcast():
 
 
 ##### endpoint para ver los favoritos de un usuario de la tabla de readings
-@app.route('/favorites_readings', methods=['GET'])
+@app.route('/api/favorites_readings', methods=['GET'])
 @jwt_required()
 def get_favorite_readings():
     user_email = get_jwt_identity()
@@ -679,7 +679,7 @@ def get_favorite_readings():
     return jsonify({'msg': 'ok', 'inf':favorites_readings_list}),200
 
 ##### endpoint para ver los favoritos de un usuario de la tabla de meditations
-@app.route('/favorites_meditations', methods=['GET'])
+@app.route('/api/favorites_meditations', methods=['GET'])
 @jwt_required()
 def get_favorite_meditations():
     user_email = get_jwt_identity()
@@ -692,7 +692,7 @@ def get_favorite_meditations():
     return jsonify({'msg': 'ok', 'inf':favorites_meditations_list}),200
 
 ##### endpoint para ver los favoritos de un usuario de la tabla de podcast
-@app.route('/favorites_podcast', methods=['GET'])
+@app.route('/api/favorites_podcast', methods=['GET'])
 @jwt_required()
 def get_favorite_podcast():
     user_email = get_jwt_identity()
@@ -706,7 +706,7 @@ def get_favorite_podcast():
 
 
 ##### endpoint para ver todos los favoritos de un usuario #####
-@app.route('/user/<int:id_user>/favorites', methods=['GET'])
+@app.route('/api/user/<int:id_user>/favorites', methods=['GET'])
 def get_favorites_user(id_user):
     favorite_readings = Favorite_Readings.query.filter_by(user_id = id_user)
     favorite_meditations = Favorite_Meditations.query.filter_by(user_id = id_user)
@@ -720,7 +720,7 @@ def get_favorites_user(id_user):
 
 
 ##### endpoint para eliminar un favorites_readings #####
-@app.route('/favorites_readings/<int:favorites_readings_id>', methods=['DELETE'])
+@app.route('/api/favorites_readings/<int:favorites_readings_id>', methods=['DELETE'])
 @jwt_required()
 def delete_favorites_readings(favorites_readings_id):
     favorites_readings = Favorite_Readings.query.get(favorites_readings_id)
@@ -731,7 +731,7 @@ def delete_favorites_readings(favorites_readings_id):
     return jsonify({'msg':'ok'}), 200
 
 ##### endpoint para eliminar un favorites_podcast #####
-@app.route('/favorites_podcast/<int:favorites_podcast_id>', methods=['DELETE'])
+@app.route('/api/favorites_podcast/<int:favorites_podcast_id>', methods=['DELETE'])
 @jwt_required()
 def delete_favorites_podcast(favorites_podcast_id):
     favorites_podcast = Favorite_Podcast.query.get(favorites_podcast_id)
@@ -742,7 +742,7 @@ def delete_favorites_podcast(favorites_podcast_id):
     return jsonify({'msg':'ok'}), 200
 
 ##### endpoint para eliminar un favorites_meditations #####
-@app.route('/favorites_meditations/<int:favorites_meditations_id>', methods=['DELETE'])
+@app.route('/api/favorites_meditations/<int:favorites_meditations_id>', methods=['DELETE'])
 @jwt_required()
 def delete_favorites_meditations(favorites_meditations_id):
     favorites_meditations = Favorite_Meditations.query.get(favorites_meditations_id)
@@ -753,7 +753,7 @@ def delete_favorites_meditations(favorites_meditations_id):
     return jsonify({'msg':'ok'}), 200
 
 ##### endpoint para ver todos los usuarios de la tabla #####
-@app.route('/user', methods=['GET'])
+@app.route('/api/user', methods=['GET'])
 def get_users():
     users = User.query.all()  
     user_list = list(map(lambda user: user.serialize(), users))
@@ -762,7 +762,7 @@ def get_users():
 
 
 ##### endpoint para ver los datos de un usuario de la tabla #####
-@app.route('/user/<int:user_id>', methods=['GET'])
+@app.route('/api/user/<int:user_id>', methods=['GET'])
 def get_user_id(user_id):
     user = User.query.get(user_id)
     if user is None:
@@ -771,7 +771,7 @@ def get_user_id(user_id):
         return jsonify({'msg':'ok','inf':user.serialize()})
 
 ##### endpoint para agregar un appointments
-@app.route('/appointment/<int:freelancer_id>', methods=['POST'])
+@app.route('/api/appointment/<int:freelancer_id>', methods=['POST'])
 @jwt_required()
 def create_appointments(freelancer_id):
     body = request.get_json(silent=True)
@@ -811,7 +811,7 @@ def create_appointments(freelancer_id):
     return jsonify({'msg': 'ok'}),200
 
 #### endpoint para ver las citas de un usuario 
-@app.route('/appointments', methods=['GET'])
+@app.route('/api/appointments', methods=['GET'])
 @jwt_required()
 def get_appointment():
     user_email = get_jwt_identity()
@@ -824,7 +824,7 @@ def get_appointment():
     return jsonify({'msg': 'ok', 'inf':appointments_list}),200
 
 ##### endpoint para actualizar en la tabla de citas #####
-@app.route('/appointments/<int:appointment_id>', methods=['PUT'])
+@app.route('/api/appointments/<int:appointment_id>', methods=['PUT'])
 @jwt_required()
 def update_appointment(appointment_id):
     appointment = Appointment.query.get(appointment_id)
@@ -847,7 +847,7 @@ def update_appointment(appointment_id):
     return jsonify({'msg':'ok'}), 200
 
 ##### endpoint para eliminar un appointment #####
-@app.route('/appointments/<int:appointment_id>', methods=['DELETE'])
+@app.route('/api/appointments/<int:appointment_id>', methods=['DELETE'])
 @jwt_required()
 def delete_appointment(appointment_id):
     appointment = Appointment.query.get(appointment_id)
@@ -894,7 +894,7 @@ def send_mail_con_body():
 #### EVENTOS MODIFICADOS NELYS####
 ### endpoint para unirse al evento ###
 
-@app.route('/event_join/<int:event_id>', methods=['POST'])
+@app.route('/api/event_join/<int:event_id>', methods=['POST'])
 @jwt_required()
 def join_event(event_id):
     user_email = get_jwt_identity()
@@ -917,7 +917,7 @@ def join_event(event_id):
     except Exception as e:
         return jsonify({"message": "Error joining the event", "error": str(e)}), 500
 
-@app.route('/event_join/<int:event_id>', methods=['GET'])
+@app.route('/api/event_join/<int:event_id>', methods=['GET'])
 @jwt_required()
 def get_event_join(event_id):
     unidos = Attendees_event.query.filter_by(events_id=event_id).all()
@@ -937,7 +937,7 @@ def get_event():
 
 #### endpoint para ver cada evento ####
 
-@app.route('/event/<int:events_id>', methods=['GET'])
+@app.route('/api/event/<int:events_id>', methods=['GET'])
 def get_events_id(events_id):
     events= Events.query.get(events_id)
     if events is None:
@@ -947,7 +947,7 @@ def get_events_id(events_id):
 
 #### endpoint para modificar evento ####
 
-@app.route('/event/<int:events_id>', methods=['PUT'])
+@app.route('/api/event/<int:events_id>', methods=['PUT'])
 def update_event(events_id):
     event = Events.query.get(events_id)
     if event is None:
@@ -967,7 +967,7 @@ def update_event(events_id):
     return jsonify({"message": "ok"}), 200
 
 #### endpoint para crear evento ####
-@app.route('/event', methods=['POST'])
+@app.route('/api/event', methods=['POST'])
 def create_event():
     data = request.get_json(silent=True)
 
@@ -990,7 +990,7 @@ def create_event():
 
 #### endpoint para cancelar evento ####
 
-@app.route('/delete_event/<int:event_id>', methods=['DELETE'])
+@app.route('/api/delete_event/<int:event_id>', methods=['DELETE'])
 def delete_event(event_id):
     try:
         event_to_delete = Events.query.get(event_id)
@@ -1011,7 +1011,7 @@ def delete_event(event_id):
 ### restablecer contrasena
 # PUT | REACTIVAR USUARIO POR EMAIL
 
-@app.route('/reactivate', methods=['PUT'])
+@app.route('/api/reactivate', methods=['PUT'])
 def reactivate_user():
     data = request.get_json()
     email_to_reactivate = data.get("email")
@@ -1033,7 +1033,7 @@ def reactivate_user():
 # Generar token de restablecimiento de contraseña
 
 
-@app.route('/recoverPassword', methods=['POST'])
+@app.route('/api/recoverPassword', methods=['POST'])
 def recover_password():
     email = request.json.get("email")
     user = User.query.filter_by(email=email).first()
@@ -1061,7 +1061,7 @@ def generate_reset_token(email):
 
 
 def send_token_email(email, nuevo_token):
-    subject = "Password Reset"
+    subject = "Restablecer contraseña"
     body = f"Ve a este link para restablecer la contraseña: https://sample-service-name-1pji.onrender.com/passwordreset/{nuevo_token}"
 
     msg = Message(subject=subject, sender="noreply@example.com",
@@ -1070,7 +1070,7 @@ def send_token_email(email, nuevo_token):
     mail.send(msg)
 
 
-@app.route('/passwordreset/<nuevo_token>', methods=['POST'])
+@app.route('/api/passwordreset/<nuevo_token>', methods=['POST'])
 def nuevo_password(nuevo_token):
     # Busca el usuario por el token de reset
     user = User.query.filter_by(nuevo_token=nuevo_token).first()
