@@ -5,6 +5,7 @@ import profesionales from "../../img/profesional.jpg";
 import hacemos from "../../img/manosapoyo.jpg";
 import equipo from "../../img/equipo.jpg"
 import "../../styles/home.css";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -104,11 +105,11 @@ export const Home = () => {
 						<h1 className="h1_contenido_conocenos_equipo"><strong>Conoce a nuestros profesionales</strong></h1>
 						<p className="p_contenido_conocenos">Contamos con un equipo de profesionales y colaboradores especializados en diferentes terapias, que te ayudarán a encontrar una solución, a medida que desarrollas habilidades y rediriges el rumbo de tu vida</p>
 						<h1 className="h1_contenido_conocenos_equipo"><strong>Te gustaría colaborar</strong></h1>
-						<button className="btn_colaborar"><strong>Trabajar como freelancer</strong></button>
-
-						<div>
-
+						<div className="colaborar">
+							<h1 className="h1_colaborar"><strong>Escríbenos </strong></h1>
+							<p><i class="fa-solid fa-envelope"></i>palante4geeksacademic@gmail.com</p>
 						</div>
+						
 					</div>
 					<div class="col-sm-12 col-md-5 psicologos" style={{ backgroundImage: `url(${equipo})` }}>
 
@@ -127,16 +128,18 @@ export const Home = () => {
 						<div class="col-sm-12 col-md-6 fondo-eventos">
 							<div class="row">
 								<div class="col-sm-12 col-md-2">
-								<p className="dia"><strong>23</strong></p>
-										<p className="mes">Nov</p>
+								<p className="dia"><strong>14</strong></p>
+										<p className="mes">Dic</p>
 								</div>
 								<div class="col-sm-12 col-md-8">
 								<p className="prox_evento">PRÓXIMO EVENTO  <span className="guion">----</span></p>
-											<p className="title_prox_evento">Presentación del proyecto Pa'lante</p>
+											<p className="title_prox_evento">Presentación de proyectos</p>
 
 								</div>
 								<div class="col-sm-12 col-md-2">
+								<Link to='events'>
 								<i className="fa-solid fa-circle-right"></i>
+								</Link>
 								</div>
 							</div>
 						</div>
@@ -154,7 +157,9 @@ export const Home = () => {
 
 								</div>
 								<div class="col-sm-12 col-md-2">
+								<Link to='events'>
 								<i className="fa-solid fa-circle-right"></i>
+								</Link>
 								</div>
 							</div>
 						</div>

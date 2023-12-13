@@ -136,7 +136,16 @@ span {
     margin-top: 3rem;
     margin-left: 7rem;
 }
-
+h1.h1_colaborar {
+    font-size: 2rem;
+}
+.colaborar {
+    background: #ffffffa1;
+    padding: 1rem;
+    width: 70%;
+    margin: 3rem 2rem 0rem 2rem;
+    border-radius: 1rem;
+}
 .manos {
     background-position: top;
     border-radius: 30px;
