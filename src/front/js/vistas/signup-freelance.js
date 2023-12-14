@@ -170,7 +170,7 @@ export const Signup_freelancer = () => {
                     onChange={(e) => setRegister({ ...register, years_of_experience: e.target.value })}
                     onBlur={handleBlur}
                   >
-                    <option value="" disabled hidden>Selecciona una opcion</option>
+                    <option value="" disabled hidden>Selecciona una opción</option>
                     <option value="0-2">0-2 años</option>
                     <option value="2-5">2-5 años</option>
                     <option value="5-10">5-10 años</option>
@@ -180,8 +180,8 @@ export const Signup_freelancer = () => {
                 </div>
 
               </div>
-              <button className="boton-registro">Registrate</button>
-              {submit && <p className="alert alert-success p-1 text-center mt-1" role="alert">Te haz registrado con exito</p>}
+              <button className="boton-registro">Regístrate</button>
+              {submit && <p className="alert alert-success p-1 text-center mt-1" role="alert">Te haz registrado con éxito</p>}
             </form>
           )}
         </Formik>
